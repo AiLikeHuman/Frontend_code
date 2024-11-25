@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>모바일 전용 페이지</title>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <h1>Fravler!</h1>
+        <div class="Auth">
+          <a href="html/signup.html">
+            <p class="sign">회원가입</p>
+          </a>
+          <p>|</p>
+          <a href="html/login.html">
+            <p class="login">로그인</p>
+          </a>
+        </div>
+      </nav>
+      <section>
+        <!--
+        <div class="banner-container">
+          //배너 컨테이너는 모양 담당
+          <div class="banner-track" id="bannerTrack">
+            <div class="banner-item" style="background-color: lightcoral">
+              이곳에 1번 광고
+            </div>
+            <div class="banner-item" style="background-color: lightseagreen">
+              이곳에 2번 광고
+            </div>
+            <div class="banner-item" style="background-color: lightblue">
+              이곳에 3번 광고
+            </div>
+            <div class="banner-item" style="background-color: lightcoral">
+              이곳에 1번 광고
+            </div>
+          </div>
+          <div class="ad-indicator" id="adIndicator">1/5</div>
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        -->
+      </section>
+      <main>
+        <div>
+          <h1 style="color: #fe5e9e">
+            창규님, 여행친구를 <br />
+            선택해주세요!
+          </h1>
+        </div>
+        <div class="friend_selection">
+          <div>
+            <a href="html/한국친구.html">
+              <img
+                class="main_img"
+                src="asset/korean_girl.jfif"
+                alt="한국 친구 사진"
+              />
+            </a>
+            <p>1. 한국 친구</p>
+          </div>
+          <div>
+            <a href="html/일본친구.html">
+              <img class="main_img" src="asset/japan_girl.jfif" alt="" />
+            </a>
+            <p>2. 일본 친구</p>
+          </div>
+        </div>
+        <div class="friend_selection">
+          <div>
+            <a href="html/미국친구.html">
+              <img class="main_img" src="asset/france_girl.jfif" alt="" />
+            </a>
+            <p>3. 프랑스 친구</p>
+          </div>
+          <div>
+            <a href="html/두바이친구.html">
+              <img
+                class="main_img"
+                src="asset/dubai_boy.png"
+                alt="한국 친구 사진"
+              />
+            </a>
+            <p>4. 두바이 친구</p>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="js/index.js"></script>
+    <script>
+      async function login(id, pw, method) {
+        const url = `https://auth.imsejong.com/auth?method=${method}`;
+
+        const payload = {
+          id: id, // 학번
+          pw: pw, // 비밀번호
+        };
+
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log("Response:", data);
+          return data;
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      // 사용 예시
+      login("", "", "post");
+    </script>
+  </body>
+</html>

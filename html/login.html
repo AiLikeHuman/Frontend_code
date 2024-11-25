@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인 및 회원가입</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- CSS 파일을 따로 두었다고 가정 -->
+  </head>
+  <body>
+    <div class="container" id="loginContainer">
+      <h2>로그인</h2>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <input type="email" id="loginEmail" placeholder="이메일" required />
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="비밀번호"
+          required
+        />
+        <button type="submit">로그인</button>
+      </form>
+      <div class="switch-form">
+        <p>
+          아직 회원이 아니신가요?
+          <a href="#" onclick="toggleForms()">회원가입</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container" id="signupContainer" style="display: none">
+      <h2>회원가입</h2>
+      <form id="signupForm" onsubmit="handleSignup(event)">
+        <input type="text" id="signupName" placeholder="이름" required />
+        <input type="email" id="signupEmail" placeholder="이메일" required />
+        <input
+          type="password"
+          id="signupPassword"
+          placeholder="비밀번호"
+          required
+        />
+        <button type="submit">회원가입</button>
+      </form>
+      <div class="switch-form">
+        <p>이미 회원이신가요? <a href="#" onclick="toggleForms()">로그인</a></p>
+      </div>
+    </div>
+
+    <script src="../js/fetch.js"></script>
+    <!-- fetch.js 파일을 포함 -->
+    <script>
+      function toggleForms() {
+        const loginContainer = document.getElementById("loginContainer");
+        const signupContainer = document.getElementById("signupContainer");
+
+        if (loginContainer.style.display === "none") {
+          loginContainer.style.display = "block";
+          signupContainer.style.display = "none";
+        } else {
+          loginContainer.style.display = "none";
+          signupContainer.style.display = "block";
+        }
+      }
+
+      function handleLogin(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        // fetch.js에서 정의된 함수 호출
+        loginUser(email, password);
+      }
+
+      function handleSignup(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+
+        const name = document.getElementById("signupName").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+
+        // fetch.js에서 정의된 함수 호출
+        signupUser(name, email, password);
+      }
+    </script>
+  </body>
+</html>
