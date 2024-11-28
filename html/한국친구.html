@@ -4,23 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>한국친구</title>
-    <link rel="stylesheet" href="../css/index_chat.css" />
+    <link rel="stylesheet" href="../css/korea_chat.css" />
     <link rel="stylesheet" href="../css/chat.css" />
   </head>
   <body>
     <div class="container">
       <nav>
-        <h1>AI 여행친구</h1>
+        <h1>Fravler!</h1>
         <div class="Auth">
-          <p class="sign">회원가입</p>
+          <a href="signup.html">
+            <p class="sign">회원가입</p>
+          </a>
           <p>|</p>
-          <p class="login">로그인</p>
+          <a href="login.html">
+            <p class="login">로그인</p>
+          </a>
         </div>
       </nav>
 
       <!-- 채팅 메시지가 표시될 영역 -->
-      <div id="chat-box" class="chat-box"></div>
-
+      <!-- <div id="chat-box" class="chat-box"></div> -->
+      <div class="dialogue-box">
+        <div class="dialogue-name">김성림</div>
+        <p class="dialogue-text">"창규야 안녕 난 성림이라고 해!!"</p>
+      </div>
       <div class="chatting">
         <input
           type="text"

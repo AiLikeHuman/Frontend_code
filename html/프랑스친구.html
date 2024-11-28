@@ -3,10 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>한국친구</title>
-    <link rel="stylesheet" href="../css/index.css" />
+    <title>프랑스친구</title>
+    <link rel="stylesheet" href="../css/france_chat.css" />
+    <link rel="stylesheet" href="../css/chat.css" />
   </head>
   <body>
-    <div class="container"></div>
+    <div class="container">
+      <nav>
+        <h1>Fravler!</h1>
+        <div class="Auth">
+          <a href="signup.html">
+            <p class="sign">회원가입</p>
+          </a>
+          <p>|</p>
+          <a href="login.html">
+            <p class="login">로그인</p>
+          </a>
+        </div>
+      </nav>
+
+      <!-- 채팅 메시지가 표시될 영역 -->
+      <!-- <div id="chat-box" class="chat-box"></div> -->
+      <div class="dialogue-box">
+        <div class="dialogue-name">김성림</div>
+        <p class="dialogue-text">"창규야 안녕 난 성림이라고 해!!"</p>
+      </div>
+      <div class="chatting">
+        <input
+          type="text"
+          id="messageInput"
+          class="message-input"
+          placeholder="메시지를 입력하세요..."
+        />
+        <button class="btnn" onclick="sendMessage()">보내기</button>
+      </div>
+    </div>
+    <script src="../js/chat.js"></script>
   </body>
 </html>

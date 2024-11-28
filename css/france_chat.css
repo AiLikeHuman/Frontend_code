@@ -12,8 +12,12 @@ body {
 
 .container {
   width: 90%;
-  max-width: 400px;
-  background-color: black;
+  max-width: 420px;
+  background-image: url("../asset/france_girl.jfif");
+  background-repeat: no-repeat;
+  object-fit: contain; /* 이미지 비율 유지 */
+  background-size: cover;
+  background-position: center;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -31,12 +35,22 @@ nav {
 }
 .Auth {
   display: flex;
-  background-color: #1a73e8;
+  background-color: #fe5e9e;
   border-radius: 10px;
   padding: 4px;
   height: 26px;
+  width: 120px;
+  justify-content: center;
   align-items: center;
 }
+.Auth a {
+  color: black;
+  text-decoration: none;
+}
+.Auth p {
+  color: white;
+}
+
 .sign {
   margin-right: 10px;
 }
@@ -44,7 +58,7 @@ nav {
   margin-left: 10px;
 }
 h1 {
-  color: white;
+  color: black;
   font-size: 24px;
 }
 
@@ -156,4 +170,34 @@ main div {
 }
 .main_img {
   border-radius: 10px;
+}
+.dialogue-box {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  background: rgba(255, 192, 203, 0.9);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dialogue-text {
+  color: white;
+  text-align: center;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.dialogue-name {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  background: #ff69b4;
+  color: white;
+  padding: 2px 15px;
+  border-radius: 15px;
+  font-size: 12px;
 }
