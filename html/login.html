@@ -4,27 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>로그인 및 회원가입</title>
-    <link rel="stylesheet" href="styles.css" />
-    <!-- CSS 파일을 따로 두었다고 가정 -->
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
   </head>
   <body>
     <div class="container" id="loginContainer">
-      <h2>로그인</h2>
+      <div class="logo-container">
+        <div class="logo">서비스 로고</div>
+      </div>
       <form id="loginForm" onsubmit="handleLogin(event)">
-        <input type="email" id="loginEmail" placeholder="이메일" required />
-        <input
-          type="password"
-          id="loginPassword"
-          placeholder="비밀번호"
-          required
-        />
-        <button type="submit">로그인</button>
+        <div class="input-container">
+          <input
+            type="email"
+            id="loginEmail"
+            class="input-field"
+            placeholder="아이디를 입력해주세요."
+            required
+          />
+        </div>
+        <div class="input-container">
+          <input
+            type="password"
+            id="loginPassword"
+            class="input-field"
+            placeholder="비밀번호를 입력해주세요."
+            required
+          />
+        </div>
+        <button type="submit" class="login-button">로그인</button>
       </form>
+
+      <div class="social-login">
+        <div id="google-login" class="google-login">구글로 3초 만에 시작하기</div>
+        <div id="kakao-login" class="kakao-login">카카오로 3초 만에 시작하기</div>
+      </div>
+
+
+          
       <div class="switch-form">
-        <p>
-          아직 회원이 아니신가요?
-          <a href="#" onclick="toggleForms()">회원가입</a>
-        </p>
+          <a href="signup.html" onclick="toggleForms()">일반 회원가입하기</a>
       </div>
     </div>
 
@@ -47,41 +68,10 @@
     </div>
 
     <script src="../js/fetch.js"></script>
-    <!-- fetch.js 파일을 포함 -->
-    <script>
-      function toggleForms() {
-        const loginContainer = document.getElementById("loginContainer");
-        const signupContainer = document.getElementById("signupContainer");
+    <script src="../js/login.js"></script>
 
-        if (loginContainer.style.display === "none") {
-          loginContainer.style.display = "block";
-          signupContainer.style.display = "none";
-        } else {
-          loginContainer.style.display = "none";
-          signupContainer.style.display = "block";
-        }
-      }
-
-      function handleLogin(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
-
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
-
-        // fetch.js에서 정의된 함수 호출
-        loginUser(email, password);
-      }
-
-      function handleSignup(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
-
-        const name = document.getElementById("signupName").value;
-        const email = document.getElementById("signupEmail").value;
-        const password = document.getElementById("signupPassword").value;
-
-        // fetch.js에서 정의된 함수 호출
-        signupUser(name, email, password);
-      }
-    </script>
   </body>
 </html>
+
+
+
