@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Survey</title>
+        <link rel="stylesheet" href="../css/index.css" />
+        <link rel="stylesheet" href="../css/prevchat.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>여행 설문조사</h1>
+
+        <div class="question">
+            <p>● 어디로 여행을 갔어?</p>
+            <button onclick="selectOption('country', '네덜란드')">네덜란드</button>
+            <button onclick="selectOption('country', '이탈리아')">이탈리아</button>
+            <button onclick="selectOption('country', '미국')">미국</button>
+        </div>
+
+        <div class="question">
+            <p>● 어떤 도시에 갔어?</p>
+            <button onclick="selectOption('city', '프라하')">프라하</button>
+            <button onclick="selectOption('city', '베네치아')">베네치아</button>
+            <button onclick="selectOption('city', '파리')">파리</button>
+        </div>
+
+        <div class="question">
+            <p>● 어떤 음식을 좋아해?</p>
+            <button onclick="selectOption('food', '샌드위치')">샌드위치</button>
+            <button onclick="selectOption('food', '샐러드')">샐러드</button>
+            <button onclick="selectOption('food', '피자')">피자</button>
+        </div>
+
+
+    <div>
+
+
+        <script>
+            // 사용자 선택 값을 저장할 객체
+            const userSelection = {
+                country: null,
+                city: null,
+                food: null
+            };
+        
+            // 사용자가 옵션을 선택했을 때 실행되는 함수
+            function selectOption(category, value) {
+                userSelection[category] = value;
+                console.log(userSelection); // 선택이 잘 저장되고 있는지 확인
+        
+                // 모든 선택이 완료되었는지 확인
+                if (userSelection.country && userSelection.city && userSelection.food) {
+                    goToNextPage();
+                }
+            }
+        
+            // 페이지 이동 함수
+            function goToNextPage() {
+                // 모든 질문에 대해 답변이 완료되면, 정보를 쿼리스트링으로 전달하여 다음 페이지로 이동
+                const queryString = `?country=${userSelection.country}&city=${userSelection.city}&food=${userSelection.food}`;
+                window.location.href = 'page2.html' + queryString;
+            }
+        </script>
+        
+    </script>
+</body>
+</html>
