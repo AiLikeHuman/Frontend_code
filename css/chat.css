@@ -9,6 +9,7 @@
   cursor: pointer; /* 마우스를 올리면 클릭 가능한 표시 */
   transition: background-color 0.3s ease; /* 색 변경 효과 */
   word-wrap: normal;
+  width: 80px;
 }
 
 .btnn:hover {
@@ -46,7 +47,10 @@
   display: flex;
   flex-direction: column; /* 메시지들을 세로로 나열 */
 }
-
+.container {
+  display: flex;
+  justify-content: center;
+}
 .chat-message {
   display: flex;
   background-color: #1a73e8;
@@ -63,7 +67,8 @@
 
 .chatting {
   display: flex;
-  justify-content: space-between; /* 입력창과 버튼을 양쪽으로 배치 */
+  justify-content: center;
+  align-items: center; /* 입력창과 버튼을 양쪽으로 배치 */
   left: 0;
   right: 0;
   bottom: 0;
@@ -71,4 +76,24 @@
   max-width: 400px;
   height: 40px;
   position: absolute;
+}
+
+.chatDiv {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+.chatDiv {
+}
+/* 채팅 메시지 박스 스타일 */
+.chat-box {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  overflow-y: auto;
+  height: 400px;
+  position: relative;
 }

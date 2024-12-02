@@ -42,6 +42,7 @@
           <div class="progress-bar" id="progressBar"></div>
         </div>
         -->
+        광고 받으면 광고 넣을 예정이에요!
       </section>
       <main>
         <div>
@@ -52,7 +53,7 @@
         </div>
         <div class="friend_selection">
           <div>
-            <a href="html/한국친구.html">
+            <a href="html/한국친구.html" onclick="saveCharId(1)">
               <img
                 class="main_img"
                 src="asset/korea_face.png"
@@ -62,7 +63,7 @@
             <p>1. 한국 친구</p>
           </div>
           <div>
-            <a href="html/일본친구.html">
+            <a href="html/일본친구.html" onclick="saveCharId(2)">
               <img class="main_img" src="asset/japan_face.png" alt="" />
             </a>
             <p>2. 일본 친구</p>
@@ -70,13 +71,13 @@
         </div>
         <div class="friend_selection">
           <div>
-            <a href="html/프랑스친구.html">
+            <a href="html/프랑스친구.html" onclick="saveCharId(3)">
               <img class="main_img" src="asset/france_face.png" alt="" />
             </a>
             <p>3. 프랑스 친구</p>
           </div>
           <div>
-            <a href="html/두바이친구.html">
+            <a href="html/두바이친구.html" onclick="saveCharId(4)">
               <img
                 class="main_img"
                 src="asset/dubai_face.png"
@@ -89,6 +90,13 @@
       </main>
     </div>
     <script src="js/index.js"></script>
+    <script>
+      // char_id를 localStorage에 저장하는 함수
+      function saveCharId(charId) {
+        localStorage.setItem("char_id", charId);
+        console.log(`char_id ${charId} 저장 완료!`);
+      }
+    </script>
     <script>
       async function login(id, pw, method) {
         const url = `https://auth.imsejong.com/auth?method=${method}`;

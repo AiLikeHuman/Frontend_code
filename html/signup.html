@@ -17,7 +17,12 @@
           placeholder="이름을 입력해주세요"
           required
         />
-        <input type="email" id="signupEmail" placeholder="이메일을 입력해주세요" required />
+        <input
+          type="email"
+          id="signupEmail"
+          placeholder="이메일을 입력해주세요"
+          required
+        />
         <input
           type="password"
           id="signupPassword"
@@ -79,9 +84,10 @@
 
       function handleSignup(event) {
         event.preventDefault();
+        const name = document.getElementById("signupName").value; // 이름 필드 값 가져오기
         const email = document.getElementById("signupEmail").value;
         const password = document.getElementById("signupPassword").value;
-        signupUser(email, password);
+        signupUser(name, email, password);
       }
     </script>
   </body>

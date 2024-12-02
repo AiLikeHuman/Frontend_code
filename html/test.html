@@ -1,101 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>대화 UI</title>
     <style>
       body {
+        font-family: "Arial", sans-serif;
         margin: 0;
         padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-      }
-
-      .app-container {
-        position: relative;
-        max-width: 430px;
-        margin: 0 auto;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 100vh;
-        background-image: url(../asset/korean_girl.jfif);
+      }
+      .chat-container {
+        width: 360px;
+        background-image: url("../asset/korean_girl.jfif");
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+      }
+      .chat-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: 700px;
+        overflow-y: auto;
+        background-image: url("../asset/korean_girl.jfif");
+        background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        background-size: cover;
       }
-
-      .header {
+      .chat-message {
         display: flex;
-        justify-content: space-between;
-        padding: 10px 20px;
-        background: #fff;
-        border-bottom: 1px solid #eee;
+        align-items: flex-end;
       }
-
-      .header-item {
-        font-size: 16px;
-        color: #333;
+      .chat-message.user {
+        justify-content: flex-end;
       }
-
-      .content {
-        position: relative;
-        height: calc(100% - 50px);
-        overflow: hidden;
-      }
-
-      .character-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .dialogue-box {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 350px;
-        background: rgba(255, 192, 203, 0.9);
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .dialogue-text {
-        color: white;
-        text-align: center;
-        margin: 0;
+      .chat-bubble {
+        max-width: 70%;
+        padding: 12px 15px;
+        border-radius: 20px;
         font-size: 14px;
-        line-height: 1.4;
+        line-height: 1.5;
+        word-break: break-word;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
       }
-
-      .dialogue-name {
-        position: absolute;
-        top: -20px;
-        left: 20px;
+      .chat-message.user .chat-bubble {
         background: #ff69b4;
         color: white;
-        padding: 2px 15px;
-        border-radius: 15px;
+        border-bottom-right-radius: 5px;
+      }
+      .chat-message.ai .chat-bubble {
+        background: #fff;
+        color: #000;
+        border-bottom-left-radius: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .chat-name-me {
         font-size: 12px;
+        color: #ff69b4;
+        margin-bottom: 5px;
+        text-align: left;
+      }
+      .chat-name-oppo {
+        font-size: 12px;
+        color: #ff69b4;
+        margin-bottom: 5px;
+        text-align: left;
+      }
+      .chat-message.user .chat-name {
+        text-align: right;
+      }
+      .chat-footer {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        background: #fff;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+      .chat-footer input {
+        width: 250px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        outline: none;
+        font-size: 14px;
+      }
+      .chat-footer button {
+        background: #ff69b4;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+      .chat-footer button:hover {
+        background: #ff4780;
       }
     </style>
   </head>
   <body>
-    <div class="app-container">
-      <div class="header">
-        <span class="header-item">홈</span>
-        <span class="header-item">내화내역</span>
-        <span class="header-item">마이페이지</span>
-      </div>
-      <div class="content">
-        <img
-          src="/api/placeholder/400/800"
-          alt="캐릭터 이미지"
-          class="character-image"
-        />
-        <div class="dialogue-box">
-          <div class="dialogue-name">미카</div>
-          <p class="dialogue-text">"언니 난 여행친구라고 해..!"</p>
+    <div class="chat-container">
+      <div class="chat-content" id="chatContent">
+        <div class="chat-message ai">
+          <div class="chat-name-oppo">민지</div>
+          <div class="chat-bubble">민준아 넌 어디로 여행을 갔어?</div>
+        </div>
+        <div class="chat-message user">
+          <div class="chat-name-me">민준</div>
+          <div class="chat-bubble">일본에 갔다왔어.</div>
         </div>
       </div>
+      <div class="chat-footer">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="메시지를 입력하세요..."
+        />
+        <button id="sendButton">전송</button>
+      </div>
     </div>
+
+    <script>
+      const chatContent = document.getElementById("chatContent");
+      const messageInput = document.getElementById("messageInput");
+      const sendButton = document.getElementById("sendButton");
+
+      sendButton.addEventListener("click", sendMessage);
+
+      function sendMessage() {
+        const messageText = messageInput.value.trim();
+        if (messageText === "") return;
+
+        // 사용자 메시지 추가
+        addMessage(messageText, "user", "민준");
+
+        // AI 응답 (예제)
+        setTimeout(() => {
+          addMessage("정말 재밌었겠네요!", "ai", "민지");
+        }, 500);
+
+        messageInput.value = "";
+      }
+
+      function addMessage(text, sender, name) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat-message", sender);
+
+        const nameDiv = document.createElement("div");
+        nameDiv.classList.add("chat-name");
+        nameDiv.textContent = name;
+
+        const bubbleDiv = document.createElement("div");
+        bubbleDiv.classList.add("chat-bubble");
+        bubbleDiv.textContent = text;
+
+        messageDiv.appendChild(nameDiv);
+        messageDiv.appendChild(bubbleDiv);
+        chatContent.appendChild(messageDiv);
+
+        chatContent.scrollTop = chatContent.scrollHeight;
+      }
+    </script>
   </body>
 </html>

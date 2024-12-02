@@ -1,4 +1,4 @@
-const API_URL = "http://13.234.16.41";
+const API_URL = "http://43.205.187.14";
 
 async function loginUser(email, password) {
   try {
@@ -22,14 +22,14 @@ async function loginUser(email, password) {
   }
 }
 
-async function signupUser(email, password) {
+async function signupUser(name, email, password) {
   try {
     const response = await fetch(`${API_URL}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     });
 
     if (response.ok) {
