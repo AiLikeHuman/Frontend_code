@@ -28,13 +28,13 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
-        height: 700px;
+        height: 670px;
         overflow-y: auto;
         background-image: url("../asset/korean_girl.jfif");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        padding-bottom: 40px; /* 추가 공간 */
+        padding-bottom: 70px; /* 추가 공간 */
         /* 스크롤바 숨기기 */
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
@@ -125,110 +125,92 @@
     </div>
 
     <script>
-      const chatContent = document.getElementById("chatContent");
-      const messageInput = document.getElementById("messageInput");
-      const sendButton = document.getElementById("sendButton");
+const chatContent = document.getElementById("chatContent");
+const messageInput = document.getElementById("messageInput");
+const sendButton = document.getElementById("sendButton");
 
-      sendButton.addEventListener("click", sendMessage);
+sendButton.addEventListener("click", sendMessage);
+messageInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    sendMessage(); // Enter 키를 누르면 sendMessage 호출
+  }
+});
 
-      async function sendMessage() {
-        const messageText = messageInput.value.trim();
-        if (messageText === "") return;
+async function sendMessage() {
+  const messageText = messageInput.value.trim();
+  if (!messageText) return;
 
-        // 사용자 메시지 추가
-        addMessage(messageText, "user", "민준");
+  addMessage(messageText, "user", "민준");
 
-        // 서버에 메시지 전송 및 응답 처리
-        const charId = localStorage.getItem("char_id");
-        if (!charId) {
-          console.error("char_id가 로컬스토리지에 없습니다.");
-          addMessage("오류: 사용자 정보를 찾을 수 없습니다.", "ai", "시스템");
-          return;
-        }
+  const charId = localStorage.getItem("char_id");
+  if (!charId) {
+    console.error("char_id가 로컬스토리지에 없습니다.");
+    addMessage("오류: 사용자 정보를 찾을 수 없습니다.", "ai", "시스템");
+    return;
+  }
 
-        try {
-          const response = await fetch(
-            `http://3.34.109.16:3001/api/ask?char_id=${charId}`,
-            {
-              method: "POST",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                question: messageText,
-              }),
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error(
-              `HTTP 오류: ${response.status} ${response.statusText}`
-            );
-          }
-
-          const responseData = await response.json();
-          const aiReply = responseData.answer || "서버에서 응답이 없습니다.";
-
-          // AI 응답 추가
-          addMessage(aiReply, "ai", "유림");
-        } catch (error) {
-          console.error("에러 발생:", error.message);
-          console.error("에러 스택:", error.stack);
-          addMessage(
-            "오류가 발생했습니다. 자세한 내용은 콘솔을 확인하세요.",
-            "ai",
-            "시스템"
-          );
-        }
-
-        messageInput.value = "";
+  try {
+    const response = await fetch(
+      `http://3.34.109.16:3001/api/ask?char_id=${charId}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: messageText,
+        }),
       }
+    );
 
-      function addMessage(text, sender, name) {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("chat-message", sender);
+    if (!response.ok) {
+      throw new Error(`HTTP 오류: ${response.status} ${response.statusText}`);
+    }
 
-        const nameDiv = document.createElement("div");
-        nameDiv.classList.add("chat-name");
-        nameDiv.textContent = name;
-        nameDiv.style.color = sender === "user" ? "#ff4780" : "#ff69b4";
-        nameDiv.style.fontSize = "12px";
+    const responseData = await response.json();
+    const aiReply = responseData.answer || "서버에서 응답이 없습니다.";
+    addMessage(aiReply, "ai", "유림");
+  } catch (error) {
+    console.error("에러 발생:", error.message);
+    addMessage(
+      "오류가 발생했습니다. 콘솔을 확인하세요.",
+      "ai",
+      "시스템"
+    );
+  }
 
-        const bubbleDiv = document.createElement("div");
-        bubbleDiv.classList.add("chat-bubble");
-        bubbleDiv.textContent = text;
+  messageInput.value = "";
+}
 
-        messageDiv.appendChild(nameDiv);
-        messageDiv.appendChild(bubbleDiv);
-        chatContent.appendChild(messageDiv);
+function addMessage(text, sender, name) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("chat-message", sender);
 
-        // 스크롤을 항상 맨 아래로
-        scrollToBottom();
-      }
+  const nameDiv = document.createElement("div");
+  nameDiv.classList.add("chat-name");
+  nameDiv.textContent = name;
+  nameDiv.style.color = sender === "user" ? "#ff4780" : "#ff69b4";
+  nameDiv.style.fontSize = "12px";
 
-      function scrollToBottom() {
-        const duration = 1000; // 스크롤 애니메이션 지속 시간 (밀리초)
-        const start = chatContent.scrollTop;
-        const end = chatContent.scrollHeight;
-        const distance = end - start;
-        const startTime = performance.now();
+  const bubbleDiv = document.createElement("div");
+  bubbleDiv.classList.add("chat-bubble");
+  bubbleDiv.textContent = text;
 
-        function animateScroll(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1); // 진행률 (0 ~ 1)
-          chatContent.scrollTop = start + distance * progress;
+  messageDiv.appendChild(nameDiv);
+  messageDiv.appendChild(bubbleDiv);
+  chatContent.appendChild(messageDiv);
 
-          if (progress < 1) {
-            requestAnimationFrame(animateScroll);
-          }
-        }
+  scrollToBottom();
+}
 
-        requestAnimationFrame(animateScroll);
-      }
+function scrollToBottom() {
+  chatContent.scrollTop = chatContent.scrollHeight;
+}
 
-      // 페이지 로드 시 자동 스크롤
-      window.onload = scrollToBottom;
+// 페이지 로드 시 자동 스크롤
+window.onload = scrollToBottom;
+
     </script>
   </body>
 </html>
